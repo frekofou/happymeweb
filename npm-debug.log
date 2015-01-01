@@ -1,0 +1,88 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'install', 'imagemin-*' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.35
+4 verbose node symlink /usr/bin/node
+5 warn package.json happyme@0.0.0 No description
+6 warn package.json happyme@0.0.0 No repository field.
+7 warn package.json happyme@0.0.0 No README data
+8 verbose readDependencies using package.json deps
+9 verbose cache add [ 'imagemin-*', null ]
+10 verbose cache add name=undefined spec="imagemin-*" args=["imagemin-*",null]
+11 verbose parsed url { protocol: null,
+11 verbose parsed url   slashes: null,
+11 verbose parsed url   auth: null,
+11 verbose parsed url   host: null,
+11 verbose parsed url   port: null,
+11 verbose parsed url   hostname: null,
+11 verbose parsed url   hash: null,
+11 verbose parsed url   search: null,
+11 verbose parsed url   query: null,
+11 verbose parsed url   pathname: 'imagemin-*',
+11 verbose parsed url   path: 'imagemin-*',
+11 verbose parsed url   href: 'imagemin-*' }
+12 silly lockFile 1f2f982a-imagemin imagemin-*
+13 verbose lock imagemin-* /home/minastirit/.npm/1f2f982a-imagemin.lock
+14 silly lockFile 1f2f982a-imagemin imagemin-*
+15 silly lockFile 1f2f982a-imagemin imagemin-*
+16 verbose addNamed [ 'imagemin-*', '' ]
+17 verbose addNamed [ null, '*' ]
+18 silly lockFile 3e6f531e-imagemin imagemin-*@
+19 verbose lock imagemin-*@ /home/minastirit/.npm/3e6f531e-imagemin.lock
+20 silly addNameRange { name: 'imagemin-*', range: '*', hasData: false }
+21 verbose request where is /imagemin-*
+22 verbose request registry https://registry.npmjs.org/
+23 verbose request id ac633e50b1170ec5
+24 verbose url raw /imagemin-*
+25 verbose url resolving [ 'https://registry.npmjs.org/', './imagemin-*' ]
+26 verbose url resolved https://registry.npmjs.org/imagemin-*
+27 verbose request where is https://registry.npmjs.org/imagemin-*
+28 info trying registry request attempt 1 at 22:11:10
+29 http GET https://registry.npmjs.org/imagemin-*
+30 http 404 https://registry.npmjs.org/imagemin-*
+31 verbose headers { date: 'Sat, 27 Dec 2014 21:11:10 GMT',
+31 verbose headers   server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+31 verbose headers   'content-type': 'application/json',
+31 verbose headers   'cache-control': 'max-age=0',
+31 verbose headers   'content-length': '52',
+31 verbose headers   'accept-ranges': 'bytes',
+31 verbose headers   via: '1.1 varnish',
+31 verbose headers   age: '0',
+31 verbose headers   'x-served-by': 'cache-fra1238-FRA',
+31 verbose headers   'x-cache': 'MISS',
+31 verbose headers   'x-cache-hits': '0',
+31 verbose headers   'x-timer': 'S1419714670.379598,VS0,VE175',
+31 verbose headers   'keep-alive': 'timeout=10, max=50',
+31 verbose headers   connection: 'Keep-Alive' }
+32 silly registry.get cb [ 404,
+32 silly registry.get   { date: 'Sat, 27 Dec 2014 21:11:10 GMT',
+32 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+32 silly registry.get     'content-type': 'application/json',
+32 silly registry.get     'cache-control': 'max-age=0',
+32 silly registry.get     'content-length': '52',
+32 silly registry.get     'accept-ranges': 'bytes',
+32 silly registry.get     via: '1.1 varnish',
+32 silly registry.get     age: '0',
+32 silly registry.get     'x-served-by': 'cache-fra1238-FRA',
+32 silly registry.get     'x-cache': 'MISS',
+32 silly registry.get     'x-cache-hits': '0',
+32 silly registry.get     'x-timer': 'S1419714670.379598,VS0,VE175',
+32 silly registry.get     'keep-alive': 'timeout=10, max=50',
+32 silly registry.get     connection: 'Keep-Alive' } ]
+33 silly lockFile 3e6f531e-imagemin imagemin-*@
+34 silly lockFile 3e6f531e-imagemin imagemin-*@
+35 error 404 404 Not Found: imagemin-*
+35 error 404
+35 error 404 'imagemin-*' is not in the npm registry.
+35 error 404 You should bug the author to publish it
+35 error 404 It was specified as a dependency of 'happyme'
+35 error 404
+35 error 404 Note that you can also install from a
+35 error 404 tarball, folder, or http url, or git url.
+36 error System Linux 2.6.32-042stab094.7
+37 error command "/usr/bin/node" "/usr/bin/npm" "install" "imagemin-*"
+38 error cwd /var/www/happyme
+39 error node -v v0.10.35
+40 error npm -v 1.4.28
+41 error code E404
+42 verbose exit [ 1, true ]
