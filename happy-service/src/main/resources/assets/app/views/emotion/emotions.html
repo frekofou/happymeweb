@@ -1,0 +1,128 @@
+<div>
+
+    <h2>Emotions</h2>
+
+    <script type = "text/ng-template" id="emotion-save.html">
+        <form name="form" role="form" novalidate
+              class="ng-scope ng-invalid ng-invalid-required ng-dirty"
+              ng-submit="ok()">
+
+            <div class="modal-header">
+                <button type="button" class="close"
+                        ng-click="cancel()">&times;</button>
+                <h4 class="modal-title" id="myEmotionLabel">Create or edit a Emotion</h4>
+            </div>
+            <div class="modal-body">
+                        
+                <div class="form-group">
+                   
+                    <label>ID</label>
+                    
+                    <input type="number" class="form-control" name="id"
+                           ng-model="emotion.id" ng-required="false"
+                           />
+                </div>
+                
+                <div class="form-group">
+                    <label>title</label>
+                    
+                    <input type="string" class="form-control" name="title"
+                           ng-model="emotion.title" ng-required="true"
+                           />
+                </div>
+                
+                  <div class="form-group">
+                    <label>longitude</label>
+                    
+                    <input type="string" class="form-control" name="longtiude"
+                           ng-model="emotion.location.longitude" ng-required="true"
+                           />
+                </div>
+                <div class="form-group">
+                    <label>latitude</label>
+                    
+                    <input type="string" class="form-control" name="latitude"
+                           ng-model="emotion.location.latitude" ng-required="true"
+                           />
+                </div>
+                
+                  <div class="form-group">
+                    <label>feeling</label>
+                    
+                    <input type="string" class="form-control" name="feeling"
+                           ng-model="emotion.feeling.type" ng-required="true"
+                           />
+                </div>
+                
+                   <div class="form-group">
+                    <label>publishedOn</label>
+                    
+                    <input type="string" class="form-control" name="publishedOn"
+                           ng-model="emotion.publishedOn" ng-required="false"
+                           />
+                </div>
+                
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="cancel()">Cancel
+                </button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </script>
+
+    <button class="btn btn-primary btn-lg" ng-click="create()">
+        <span class="glyphicon glyphicon-flash"></span> Create a new Emotion
+    </button>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+             
+                
+                <th>id</th>
+                
+                <th>title</th>
+                
+                <th>location</th>
+                
+                <th>feeling</th>
+                
+                <th>publishedOn</th>
+                
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="emotion in emotions">
+               
+                
+                <td>{{emotion.id }}</td>
+                
+                <td>{{emotion.title }}</td>
+                
+                <td>{{emotion.location }}</td>
+                
+                <td>{{emotion.feeling }}</td>
+                
+                 <td>{{emotion.publishedOn }}</td>
+                
+                
+                <td>
+                    <button type="submit"
+                            ng-click="update(emotion.id)"
+                            class="btn">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(emotion.id)"
+                            class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
