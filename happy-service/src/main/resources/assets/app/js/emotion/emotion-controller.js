@@ -44,10 +44,9 @@ angular.module('happy')
           
           "title": "",
             
-          "location": {"latitude":"","longitude":""},
+          "location": {"latitude":'',"longitude":""},
             
           "feeling":{"type":""}
-          
           };
       };
 

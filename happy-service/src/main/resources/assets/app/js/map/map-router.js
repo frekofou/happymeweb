@@ -5,6 +5,11 @@ angular.module('happy')
     $routeProvider
       .when('/map', {
         templateUrl: 'views/map/emotions_map.html',
-        controller: 'MapController'
+        controller: 'MapController',
+        resolve:{
+          resolvedEmotion: ['Emotion', function (Emotion) {
+            return Emotion.query();
+          }]
+        }
       })
     }]);

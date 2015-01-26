@@ -1,10 +1,12 @@
 'use strict';
 
 angular.module('happy')
-  .config(function(uiGmapGoogleMapApiProvider) {
-    uiGmapGoogleMapApiProvider.configure({
-        //    key: 'your api key',
-        v: '3.17',
-        libraries: 'weather,geometry,visualization'
+ .factory('Emotion', ['$resource', function ($resource) {
+    return $resource('http://127.0.0.1:8080/emotions/:id', {id:'@id'}, {
+     'query': { method: 'GET', isArray: true},
+      'get': { method: 'GET'},
+      'update': { method: 'PUT'},
+      'DELETE': { method: 'DELETE'}
     });
-});
+  }]);
+
