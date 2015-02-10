@@ -42,11 +42,12 @@ angular.module('happy')
       $scope.clear = function () {
         $scope.emotion = {
           
-          "title": "",
+          title: "",
             
-          "location": {"latitude":'',"longitude":""},
             
-          "feeling":{"type":""}
+          coords: "",
+            
+          feeling:{type:""}
           };
       };
 

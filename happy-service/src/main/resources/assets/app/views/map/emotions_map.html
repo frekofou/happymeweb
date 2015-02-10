@@ -2,62 +2,20 @@
 
     <h2>Maps</h2>
 
-    <ui-gmap-google-map center='map.center' zoom='map.zoom' >
-          
-        <ui-gmap-markers models="emotions"  click="'onClicked'" coords="'self'"
-                         fit="true"  doRebuildAll="true"  idKey="'id'">
-            
-        </ui-gmap-markers>
-</ui-gmap-google-map>
+
+<div id="map_canvas" ng-controller="MapController">
+    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="false" options="options">
+        <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+        </ui-gmap-marker>
+    </ui-gmap-google-map>
+    <div ng-cloak>
+        <ul>
+            <li>coords update ctr: {{coordsUpdates}}</li>
+            <li>dynamic move ctr: {{dynamicMoveCtr}}</li>
+        </ul>
+    </div>
+</div>
     
 
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-             
-                
-                <th>id</th>
-                
-                <th>title</th>
-                
-                <th>location</th>
-                
-                <th>feeling</th>
-                
-                <th>publishedOn</th>
-                
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="emotion in emotions">
-               
-                
-                <td>{{emotion.id }}</td>
-                
-                <td>{{emotion.title }}</td>
-                
-                <td>{{emotion.location }}</td>
-                
-                <td>{{emotion.feeling }}</td>
-                
-                 <td>{{emotion.publishedOn }}</td>
-                
-                
-                <td>
-                    <button type="submit"
-                            ng-click="update(emotion.id)"
-                            class="btn">
-                        <span class="glyphicon glyphicon-pencil"></span> Edit
-                    </button>
-                    <button type="submit"
-                            ng-click="delete(emotion.id)"
-                            class="btn btn-danger">
-                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+   
 </div>
