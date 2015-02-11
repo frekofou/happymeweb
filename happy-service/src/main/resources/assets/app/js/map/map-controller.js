@@ -21,7 +21,7 @@ angular.module('happy')
     var service;
     var geocoder;
     var latlng;
-    var lat; 
+    var lat;
     var lon;
 
     // creation du marker
@@ -44,49 +44,49 @@ angular.module('happy')
                 latlng = getLatLngFromMarker(marker);
                 $log.log('recupération de l\'objet:' + latlng);
                 geocodeFromLatLng(latlng);
-                    
+
             }
         }
 
     };
-    
-          function getLatLngFromMarker(marker) {
-                    $log.log('dans le getLatLngFromMarker');
-                    
-                     // position du marker sur la map --> le marker porte sa position et non la map  
-                var lat = marker.getPosition().lat();
-                var lon = marker.getPosition().lng();
-                // a supprime?
-                
-                latlng = new google.maps.LatLng(lat, lon);
-                $log.log(lat);
-                $log.log(lon);
-                return latlng;
-          }
-          
-          function geocodeFromLatLng(latlng) {
-                $log.log('dans le geocodeFromLatLng');
-                 geocoder = new google.maps.Geocoder(); 
-              
-                 geocoder.geocode({
-                        'latLng': latlng
-                    }, function (results, status) {
-                        $log.log('tentative de geocoding via ' + latlng);
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            $log.log('status == google.maps.GeocoderStatus.OK');
-                            $log.log('geocoding réussi');
-                                $log.log('reponse brute:');
-                                $log.log(results[0]);
-                           
-                        } else {
-                            $log.log('Geocoder failed');
-                            alert("Geocoder failed due to: " + status);
-                        }
-                    });
-               
-          }
-                    
-          
+
+    function getLatLngFromMarker(marker) {
+        $log.log('dans le getLatLngFromMarker');
+
+        // position du marker sur la map --> le marker porte sa position et non la map  
+        var lat = marker.getPosition().lat();
+        var lon = marker.getPosition().lng();
+        // a supprime?
+
+        latlng = new google.maps.LatLng(lat, lon);
+        $log.log(lat);
+        $log.log(lon);
+        return latlng;
+    }
+
+    function geocodeFromLatLng(latlng) {
+        $log.log('dans le geocodeFromLatLng');
+        geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode({
+            'latLng': latlng
+        }, function (results, status) {
+            $log.log('tentative de geocoding via ' + latlng);
+            if (status == google.maps.GeocoderStatus.OK) {
+                $log.log('status == google.maps.GeocoderStatus.OK');
+                $log.log('geocoding réussi');
+                $log.log('reponse brute:');
+                $log.log(results[0]);
+
+            } else {
+                $log.log('Geocoder failed');
+                alert("Geocoder failed due to: " + status);
+            }
+        });
+
+    }
+
+
     /* $scope.$watchCollection("marker.coords", function (newVal, oldVal) {
        if (_.isEqual(newVal, oldVal))
          return;
