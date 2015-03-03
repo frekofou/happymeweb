@@ -3,12 +3,13 @@
 angular.module('happy')
 
 
-.controller("MapController", function ($scope, $log, $timeout) {
+.controller('MapController', ['$scope', 'Emotion', 'EmotionService', function ($scope, $timeout, Emotion, EmotionService) {
     // initialisation de la map
     $scope.map = {
         center: {
             latitude: -21.040414446125766,
-            longitude: 55.718346697807306
+            longitude: 55.718346697807306,
+
         },
         zoom: 20
     };
@@ -23,6 +24,10 @@ angular.module('happy')
     var latlng;
     var lat;
     var lon;
+    var map;
+    var geocodedPlace;
+    var emotion;
+    var myGeocodeResults;
 
     // creation du marker
     $scope.marker = {
@@ -37,75 +42,71 @@ angular.module('happy')
         },
         // evenement relachement du drag du marker
         events: {
+
             // le marker, le fait de drager, les evenements navigateur
             dragend: function (marker, eventName, args) {
-                $log.log('relachement du marker');
+                console.log("relachement du marker");
                 // peut mieux faire pour lancer le code 
                 latlng = getLatLngFromMarker(marker);
-                $log.log('recupération de l\'objet:' + latlng);
-                geocodeFromLatLng(latlng);
+                console.log('recupération de latlng deouis le marker:' + latlng);
+                geocodedPlace = geocodeFromLatLng(latlng);
+            },
+            dblclick: function (marker, eventName, args) {
+
+                console.log("myGeocodeResults:" + myGeocodeResults);
+                console.log("pre query");
+                emotion = {
+                    title: "ma nouvelle emotion",
+                    location: myGeocodeResults,
+                    feeling: {
+                        type: "HAPPY"
+                    }
+                };
+
+
+                console.log("avant enregistrement" + emotion);
+                console.log(emotion);
+                Emotion.save(emotion);
+                console.log(" post query");
 
             }
-        }
 
+        }
     };
 
-    function getLatLngFromMarker(marker) {
-        $log.log('dans le getLatLngFromMarker');
+    function getLatLngFromMarker(marker, EmotionService, $scope) {
+        console.log('dans le getLatLngFromMarker');
 
         // position du marker sur la map --> le marker porte sa position et non la map  
         var lat = marker.getPosition().lat();
         var lon = marker.getPosition().lng();
-        // a supprime?
 
         latlng = new google.maps.LatLng(lat, lon);
-        $log.log(lat);
-        $log.log(lon);
+        console.log(lat);
+        console.log(lon);
         return latlng;
     }
 
     function geocodeFromLatLng(latlng) {
-        $log.log('dans le geocodeFromLatLng');
+        console.log('dans le geocodeFromLatLng');
         geocoder = new google.maps.Geocoder();
-
         geocoder.geocode({
             'latLng': latlng
         }, function (results, status) {
-            $log.log('tentative de geocoding via ' + latlng);
+            console.log('tentative de geocoding via ' + latlng);
             if (status == google.maps.GeocoderStatus.OK) {
-                $log.log('status == google.maps.GeocoderStatus.OK');
-                $log.log('geocoding réussi');
-                $log.log('reponse brute:');
-                $log.log(results[0]);
+                console.log('status == google.maps.GeocoderStatus.OK');
+                console.log('geocoding réussi');
+                console.log('reponse brute:');
+                console.log(results[0]);
+                myGeocodeResults = results;
 
             } else {
-                $log.log('Geocoder failed');
+                console.log('Geocoder failed');
                 alert("Geocoder failed due to: " + status);
+                myGeocodeResults = null;
             }
         });
-
     }
 
-
-    /* $scope.$watchCollection("marker.coords", function (newVal, oldVal) {
-       if (_.isEqual(newVal, oldVal))
-         return;
-       $scope.coordsUpdates++;
-     });
-     $timeout(function () {
-       $scope.marker.coords = {
-         latitude: -21.089607729507502,
-         longitude: 55.666960937499994
-       };
-       $scope.dynamicMoveCtr++;
-       $timeout(function () {
-         $scope.marker.coords = {
-           latitude: -21.089607729507502,
-           longitude: 55.666960937499994
-         };
-         $scope.dynamicMoveCtr++;
-       }, 2000);
-     }, 1000);*/
-
-
-});
+}]);
