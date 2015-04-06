@@ -7,7 +7,7 @@ angular.module('happy')
         templateUrl: 'views/map/emotions_map.html',
         controller: 'MapController',
         resolve:{
-          resolvedEmotion: ['Emotion', function (Emotion) {
+          resolvedEmotion: ['EmotionService', function (EmotionMapFonction) {
             return Emotion.query();
           }]
         }

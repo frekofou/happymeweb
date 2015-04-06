@@ -1,9 +1,9 @@
-'use strict';
+/*'use strict';
 
 angular.module('happy')
 
 
-.controller('MapController', ['$scope', 'Emotion', 'EmotionService', function ($scope, $timeout, Emotion, EmotionService) {
+.controller('MapController', ['$scope', 'EmotionService','resolvedEmotion', function ($scope, $timeout, EmotionService,resolvedEmotion) {
     // initialisation de la map
     $scope.map = {
         center: {
@@ -49,15 +49,15 @@ angular.module('happy')
                 // peut mieux faire pour lancer le code 
                 latlng = getLatLngFromMarker(marker);
                 console.log('recupération de latlng deouis le marker:' + latlng);
-                geocodedPlace = geocodeFromLatLng(latlng);
+               // geocodedPlace = geocodeFromLatLng(latlng);
             },
             dblclick: function (marker, eventName, args) {
-
+                latlng = getLatLngFromMarker(marker);
                 console.log("myGeocodeResults:" + myGeocodeResults);
                 console.log("pre query");
                 emotion = {
                     title: "ma nouvelle emotion",
-                    location: myGeocodeResults,
+                    location:latlng ,
                     feeling: {
                         type: "HAPPY"
                     }
@@ -66,7 +66,7 @@ angular.module('happy')
 
                 console.log("avant enregistrement" + emotion);
                 console.log(emotion);
-                Emotion.save(emotion);
+                resolvedEmotion.save(emotion);
                 console.log(" post query");
 
             }
@@ -74,7 +74,7 @@ angular.module('happy')
         }
     };
 
-    function getLatLngFromMarker(marker, EmotionService, $scope) {
+    function getLatLngFromMarker(marker, $scope) {
         console.log('dans le getLatLngFromMarker');
 
         // position du marker sur la map --> le marker porte sa position et non la map  
@@ -84,6 +84,7 @@ angular.module('happy')
         latlng = new google.maps.LatLng(lat, lon);
         console.log(lat);
         console.log(lon);
+        console.log(latlng);
         return latlng;
     }
 
@@ -109,4 +110,4 @@ angular.module('happy')
         });
     }
 
-}]);
+}]);*/

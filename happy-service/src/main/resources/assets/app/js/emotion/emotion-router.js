@@ -7,8 +7,8 @@ angular.module('happy')
         templateUrl: 'views/emotion/emotions.html',
         controller: 'EmotionController',
         resolve:{
-          resolvedEmotion: ['Emotion', function (Emotion) {
-            return Emotion.query();
+          emotionsFromDB: ['EmotionService', function (EmotionFunctionService) {
+            return EmotionFunctionService.query();
           }]
         }
       })

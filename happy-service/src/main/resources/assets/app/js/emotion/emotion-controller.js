@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('happy')
-    .controller('EmotionController', ['$scope', '$modal', 'resolvedEmotion', 'EmotionService',
-    function ($scope, $modal, resolvedEmotion, EmotionService) {
+    .controller('EmotionController', ['$scope', '$modal', 'emotionsFromDB', 'EmotionService',
+    function ($scope, $modal, emotionsFromDB, EmotionService) {
             console.log("dans le controller EmotionController");
-            $scope.emotions = resolvedEmotion;
+            $scope.emotions = emotionsFromDB;
 
             $scope.create = function () {
                 console.log("dans le controller create");
@@ -12,38 +12,40 @@ angular.module('happy')
                 $scope.open();
             };
 
-            $scope.update = function (id) {
+            $scope.update = function (_id) {
                 console.log("dans le controller update");
-                $scope.emotion = Emotion.get({
-                    id: id
+                $scope.emotion = EmotionService.get({
+                    _id: _id
                 });
-                $scope.open(id);
+                $scope.open(_id);
             };
 
-            $scope.delete = function (id) {
+            $scope.delete = function (_id) {
                 console.log("dans le controller delete");
-                Emotion.delete({
-                        id: id
+                EmotionService.delete({
+                        _id: _id
                     },
                     function () {
-                        $scope.emotions = Emotion.query();
+                        $scope.emotions = EmotionService.query();
                     });
             };
 
-            $scope.save = function (id) {
+            $scope.save = function (_id) {
                 console.log("dans le controller save");
-                if (id) {
-                    Emotion.update({
-                            id: id
+                if (_id) {
+                    console.log("dans le if (_id) ");
+                    EmotionService.update({
+                            _id: _id
                         }, $scope.emotion,
                         function () {
-                            $scope.emotions = Emotion.query();
+                            $scope.emotions = EmotionService.query();
                             $scope.clear();
                         });
                 } else {
-                    Emotion.save($scope.emotion,
+                    console.log("dans le else) ");
+                    EmotionService.save($scope.emotion,
                         function () {
-                            $scope.emotions = Emotion.query();
+                            $scope.emotions = EmotionService.query();
                             $scope.clear();
                         });
                 }
@@ -64,7 +66,7 @@ angular.module('happy')
                 };
             };
 
-            $scope.open = function (id) {
+            $scope.open = function (_id) {
                 console.log("dans le controller open");
                 var emotionSave = $modal.open({
                     templateUrl: 'emotion-save.html',
@@ -79,7 +81,7 @@ angular.module('happy')
                 emotionSave.result.then(function (entity) {
                     console.log("dans le controller emotionSave");
                     $scope.emotion = entity;
-                    $scope.save(id);
+                    $scope.save(_id);
                 });
             };
     }])
