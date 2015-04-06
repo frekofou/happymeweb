@@ -33,7 +33,7 @@ angular.module('happy')
             $scope.save = function (_id) {
                 console.log("dans le controller save");
                 if (_id) {
-                    console.log("dans le if (_id) ");
+                    console.log("dans le if (_id) " + _id);
                     EmotionService.update({
                             _id: _id
                         }, $scope.emotion,

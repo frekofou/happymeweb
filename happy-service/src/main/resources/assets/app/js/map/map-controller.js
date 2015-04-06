@@ -1,9 +1,9 @@
-/*'use strict';
+'use strict';
 
 angular.module('happy')
 
-
-.controller('MapController', ['$scope', 'EmotionService','resolvedEmotion', function ($scope, $timeout, EmotionService,resolvedEmotion) {
+// emotion manipulation is managed bu the EmotionController, it needs the EmotionSevice instance to work. why?
+.controller('MapController', ['$scope', 'EmotionService', function ($scope, EmotionController, EmotionService, $timeout) {
     // initialisation de la map
     $scope.map = {
         center: {
@@ -19,7 +19,7 @@ angular.module('happy')
     // compteurs de modification
     $scope.coordsUpdates = 0;
     $scope.dynamicMoveCtr = 0;
-    var service;
+   
     var geocoder;
     var latlng;
     var lat;
@@ -29,7 +29,7 @@ angular.module('happy')
     var emotion;
     var myGeocodeResults;
 
-    // creation du marker
+    // creation du marker, lord du deplacement du marker on sauvegarde sa position
     $scope.marker = {
         id: 0,
         // coordonnées de positionnement du marker : to do geolocaliser
@@ -48,8 +48,8 @@ angular.module('happy')
                 console.log("relachement du marker");
                 // peut mieux faire pour lancer le code 
                 latlng = getLatLngFromMarker(marker);
-                console.log('recupération de latlng deouis le marker:' + latlng);
-               // geocodedPlace = geocodeFromLatLng(latlng);
+                console.log('recupération de latlng depuis le marker:' + latlng);
+                // geocodedPlace = geocodeFromLatLng(latlng);
             },
             dblclick: function (marker, eventName, args) {
                 latlng = getLatLngFromMarker(marker);
@@ -57,7 +57,7 @@ angular.module('happy')
                 console.log("pre query");
                 emotion = {
                     title: "ma nouvelle emotion",
-                    location:latlng ,
+                    location: latlng,
                     feeling: {
                         type: "HAPPY"
                     }
@@ -66,7 +66,7 @@ angular.module('happy')
 
                 console.log("avant enregistrement" + emotion);
                 console.log(emotion);
-                resolvedEmotion.save(emotion);
+                EmotionController.save(emotion);
                 console.log(" post query");
 
             }
@@ -110,4 +110,4 @@ angular.module('happy')
         });
     }
 
-}]);*/
+}]);
