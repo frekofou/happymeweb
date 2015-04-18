@@ -37,7 +37,7 @@ angular.module('happy')
                     });
             };
         
-            $scope.saved = function (_id) {
+            $scope.save = function (_id) {
                 console.log("dans le controller save");
                 if (_id) {
                     console.log("dans le if (_id) " + _id);
