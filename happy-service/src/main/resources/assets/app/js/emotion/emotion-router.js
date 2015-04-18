@@ -8,6 +8,7 @@ angular.module('happy')
                 controller: 'EmotionController',
                 resolve: {
                     emotionsFromDB: ['EmotionService', function (EmotionFunctionService) {
+                        console.log("dans lemotionRouter");
                         return EmotionFunctionService.query();
           }]
                 }

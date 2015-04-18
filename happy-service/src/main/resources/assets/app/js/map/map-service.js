@@ -1,19 +1,16 @@
 'use strict';
-
 angular.module('happy')
-    .factory('EmotionService', ['$resource', function ($resource) {
-        console.log("dans lemotionService");
+    .factory('MapService', ['$resource', function ($resource) {
+        console.log("dans lemapService");
         return $resource('http://127.0.0.1:8080/emotions/:_id', {
             _id: '@_id'
         }, {
             'query': {
                 method: 'GET',
-                isArray: true,
-                responseType: "JSON"
+                isArray: true
             },
             'get': {
-                method: 'GET',
-                isArray: true
+                method: 'GET' 
             },
             'update': {
                 method: 'PUT'

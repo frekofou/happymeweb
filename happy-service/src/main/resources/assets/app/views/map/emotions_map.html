@@ -4,10 +4,19 @@
 
 
 <div id="map_canvas" ng-controller="MapController">
-    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="false" options="options">
+    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="false" options="map.options" events="'dblclick'">
         <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
         </ui-gmap-marker>
+     
+  <ui-gmap-markers 
+            models="markers"
+            coords="'self'"
+            icon="'icon'"
+            
+    >
+    </ui-gmap-markers>
     </ui-gmap-google-map>
+    
     <div ng-cloak>
         <ul>
             <li>coords update ctr: {{coordsUpdates}}</li>

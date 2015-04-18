@@ -5,11 +5,18 @@ angular.module('happy')
     function ($scope, $modal, emotionsFromDB, EmotionService) {
             console.log("dans le controller EmotionController");
             $scope.emotions = emotionsFromDB;
+            //console.log(emotionsFromDB);
 
             $scope.create = function () {
                 console.log("dans le controller create");
                 $scope.clear();
                 $scope.open();
+            };
+        
+           $scope.get = function () {
+               
+                console.log("dans le get");
+                
             };
 
             $scope.update = function (_id) {
@@ -29,8 +36,8 @@ angular.module('happy')
                         $scope.emotions = EmotionService.query();
                     });
             };
-
-            $scope.save = function (_id) {
+        
+            $scope.saved = function (_id) {
                 console.log("dans le controller save");
                 if (_id) {
                     console.log("dans le if (_id) " + _id);
@@ -77,6 +84,8 @@ angular.module('happy')
                         }
                     }
                 });
+                
+                
 
                 emotionSave.result.then(function (entity) {
                     console.log("dans le controller emotionSave");
@@ -84,6 +93,10 @@ angular.module('happy')
                     $scope.save(_id);
                 });
             };
+        
+        
+
+        
     }])
     .controller('EmotionSaveController', ['$scope', '$modalInstance', 'emotion',
     function ($scope, $modalInstance, emotion) {
