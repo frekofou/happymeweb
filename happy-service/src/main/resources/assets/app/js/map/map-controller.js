@@ -5,7 +5,7 @@ angular.module('happy')
 // emotion manipulation is managed bu the EmotionController, it needs the EmotionSevice instance to work. why?
 .controller('MapController', ['$scope', 'EmotionService', function ($scope, EmotionController, EmotionService, $timeout, $resource) {
 
-    getAllMarkers();
+    
 
     // initialisation de la map
     $scope.map = {
@@ -14,7 +14,7 @@ angular.module('happy')
             longitude: 55.718346697807306,
             title: "Hello World!"
         },
-        zoom: 20
+        zoom: 10
 
     };
     $scope.options = {
@@ -23,7 +23,7 @@ angular.module('happy')
     // compteurs de modification
     $scope.coordsUpdates = 0;
     $scope.dynamicMoveCtr = 0;
-
+    getAllMarkers(); 
     // initilisations des variables
 
     var geocoder;
@@ -92,7 +92,7 @@ angular.module('happy')
 
         console.log("dans le getAllMarkers");
         $scope.markers = [];
-        var myemotion = [];
+
 
         var markers = [];
         var marker1 = {
@@ -105,25 +105,35 @@ angular.module('happy')
 
         console.log(EmotionController.query());
 
-        var myemotion = EmotionController.query();
+
 
         EmotionController.query(function (data) {
-             console.log("dans le query data");
-             myemotion = data;
-             for (var i = 0, n = 2; i < n; i++) {
-                 console.log(myemotion[i]);
-               
-             }
+            console.log("dans le query data");
+            var emotion;
 
-
+            for (var i = 0, n = data.length; i < n; i++) {
+                //console.log(data[i]);
+                emotion = data[i];
+                //console.log(emotion._id);
+                var tempmark = {
+                    latitude: emotion.location.k,
+                    longitude: emotion.location.B,
+                    title: emotion.title,
+                    id: emotion._id
+                };
+                console.log("tempmark: " + tempmark);
+                markers.push(tempmark);
+            }
+            console.log("les markers: " + markers);
+           
+        // set des markers
+        $scope.markers = markers; 
+             console.log("le scope: " + $scope.markers);
         });
 
-        console.log(myemotion);
         console.log("Recuperation des emotions");
 
 
-        // set des markers
-        $scope.markers = markers;
     }
 
 
