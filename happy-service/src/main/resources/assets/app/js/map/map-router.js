@@ -8,7 +8,7 @@ angular.module('happy')
                 controller: 'MapController',
                 resolve: {
                     emotionsMapsFromDB: ['MapService', function (MapFunctionService) {
-                        console.log("dans lemotionMapRouter");
+                        console.info("dans lemotionMapRouter");
                         return MapFunctionService.query();
           }]
                 }

@@ -5,15 +5,17 @@
 
 <div id="map_canvas" ng-controller="MapController">
     <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="false" options="map.options" events="'dblclick'">
-        <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+        <ui-gmap-marker coords="happymarker.coords" options="happymarker.options" events="happymarker.events" idkey="happymarker.id" icon="'/views/images/happymarker.png'">
+        </ui-gmap-marker>
+         <ui-gmap-marker coords="sadmarker.coords" options="sadmarker.options" events="sadmarker.events" idkey="sadmarker.id" icon="'/views/images/sadmarker.png'">
         </ui-gmap-marker>
      
   <ui-gmap-markers 
             models="markers"
             coords="'self'"
             icon="'icon'"
-            id="'_id'"       
-            
+            id="'_id'"
+            click=
     >
     </ui-gmap-markers>
     </ui-gmap-google-map>

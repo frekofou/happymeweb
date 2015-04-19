@@ -5,16 +5,27 @@ angular.module('happy')
 // emotion manipulation is managed bu the EmotionController, it needs the EmotionSevice instance to work. why?
 .controller('MapController', ['$scope', 'EmotionService', function ($scope, EmotionController, EmotionService, $timeout, $resource) {
 
-    
+
 
     // initialisation de la map
     $scope.map = {
         center: {
             latitude: -21.040414446125766,
-            longitude: 55.718346697807306,
-            title: "Hello World!"
+            longitude: 55.718346697807306
         },
-        zoom: 10
+        zoom: 15,
+        options: {
+            backgroundColor: "white",
+            disableDoubleClickZoom: true,
+            mapTypeControl: false,
+            maxZoom: 20,
+            minZoom: 2,
+            overviewMapControl: false,
+            rotateControl: true,
+            streetViewControl: false
+
+        }
+
 
     };
     $scope.options = {
@@ -23,7 +34,7 @@ angular.module('happy')
     // compteurs de modification
     $scope.coordsUpdates = 0;
     $scope.dynamicMoveCtr = 0;
-    getAllMarkers(); 
+    getAllMarkers();
     // initilisations des variables
 
     var geocoder;
@@ -36,8 +47,9 @@ angular.module('happy')
     var myGeocodeResults;
 
     // creation du marker, lord du deplacement du marker on sauvegarde sa position
-    $scope.marker = {
+    $scope.happymarker = {
         id: 0,
+
         // coordonnées de positionnement du marker : to do geolocaliser
         coords: {
             latitude: -21.040414446125766,
@@ -45,25 +57,27 @@ angular.module('happy')
         },
         options: {
             draggable: true
+
         },
+
         // evenement relachement du drag du marker
         events: {
 
             // le marker, le fait de drager, les evenements navigateur
             dragend: function (marker, eventName, args) {
-                console.log("relachement du marker");
+                //console.info("relachement du marker");
                 // peut mieux faire pour lancer le code 
                 latlng = getLatLngFromMarker(marker);
-                console.log('recupération de latlng depuis le marker:' + latlng);
+                //console.info('recupération de latlng depuis le marker:' + latlng);
                 // permet de geocoder directement depuis le javascrit
                 // cette fonction est déportée coté serveur
-                //geocodedPlace = geocodeFromLatLng(latlng);
+                // geocodedPlace = geocodeFromLatLng(latlng);
 
             },
             dblclick: function (marker, eventName, args) {
                 latlng = getLatLngFromMarker(marker);
-                console.log("myGeocodeResults:" + myGeocodeResults);
-                console.log("pre query");
+                // console.info("myGeocodeResults:" + myGeocodeResults);
+                // console.info("pre query");
                 emotion = {
                     title: "ma nouvelle emotion",
                     location: latlng,
@@ -72,66 +86,104 @@ angular.module('happy')
                     }
                 };
 
-
-                console.log("avant enregistrement" + emotion);
-                console.log(emotion);
-
-                //console.log(" dans get all query");      
-
+                var foo;
+                
                 EmotionController.save(emotion);
-                console.log(" post query");
-
-
-
+                // console.info(" post query");
+                foo = getAllMarkers();
             }
-
         }
+
+    };
+    
+    $scope.sadmarker = {
+        id: 1,
+
+        // coordonnées de positionnement du marker : to do geolocaliser
+        coords: {
+            latitude: -21.040414446125766,
+            longitude: 55.718346697807306
+        },
+        options: {
+            draggable: true
+
+        },
+
+        // evenement relachement du drag du marker
+        events: {
+
+            // le marker, le fait de drager, les evenements navigateur
+            dragend: function (marker, eventName, args) {
+                //console.info("relachement du marker");
+                // peut mieux faire pour lancer le code 
+                latlng = getLatLngFromMarker(marker);
+                //console.info('recupération de latlng depuis le marker:' + latlng);
+                // permet de geocoder directement depuis le javascrit
+                // cette fonction est déportée coté serveur
+                // geocodedPlace = geocodeFromLatLng(latlng);
+
+            },
+            dblclick: function (marker, eventName, args) {
+                latlng = getLatLngFromMarker(marker);
+                // console.info("myGeocodeResults:" + myGeocodeResults);
+                // console.info("pre query");
+                emotion = {
+                    title: "ma nouvelle emotion",
+                    location: latlng,
+                    feeling: {
+                        type: "SAD"
+                    }
+                };
+
+                var foo;
+                
+                EmotionController.save(emotion);
+                // console.info(" post query");
+                foo = getAllMarkers();
+            }
+        }
+
     };
 
     function getAllMarkers() {
 
-        console.log("dans le getAllMarkers");
+        console.info("dans le getAllMarkers");
         $scope.markers = [];
 
 
         var markers = [];
-        var marker1 = {
-            latitude: -21.10,
-            longitude: 55.718346697807306,
-            title: 'm',
-            id: 1
-        };
-        markers.push(marker1);
 
-        console.log(EmotionController.query());
+        console.info(EmotionController.query());
 
 
 
         EmotionController.query(function (data) {
-            console.log("dans le query data");
+            console.info("dans le query data");
             var emotion;
 
             for (var i = 0, n = data.length; i < n; i++) {
-                //console.log(data[i]);
+                //console.info(data[i]);
                 emotion = data[i];
-                //console.log(emotion._id);
+                console.info(emotion.feeling.type);
+                var icon = getIcon(emotion.feeling.type);
                 var tempmark = {
                     latitude: emotion.location.k,
                     longitude: emotion.location.B,
                     title: emotion.title,
-                    id: emotion._id
+                    id: emotion._id,
+                    icon: icon
                 };
-                console.log("tempmark: " + tempmark);
+                //console.info("tempmark: " + tempmark);
                 markers.push(tempmark);
             }
-            console.log("les markers: " + markers);
-           
-        // set des markers
-        $scope.markers = markers; 
-             console.log("le scope: " + $scope.markers);
+            console.info("les markers: " + markers);
+
+            // set des markers
+            $scope.markers = markers;
+            console.info("le scope: " + $scope.markers);
         });
 
-        console.log("Recuperation des emotions");
+        console.info("Recuperation des emotions");
 
 
     }
@@ -139,42 +191,60 @@ angular.module('happy')
 
     // permet de geolocaliser le point
     function getLatLngFromMarker(marker, $scope) {
-        console.log('dans le getLatLngFromMarker');
+        console.info('dans le getLatLngFromMarker');
 
         // position du marker sur la map --> le marker porte sa position et non la map  
         var lat = marker.getPosition().lat();
         var lon = marker.getPosition().lng();
 
         latlng = new google.maps.LatLng(lat, lon);
-        console.log(lat);
-        console.log(lon);
-        console.log(latlng);
+        console.info(lat);
+        console.info(lon);
+        console.info(latlng);
         return latlng;
     }
 
     // permet de geocoder le marker, cette fonction a été déporté coté serveur
     // deprecated
     function geocodeFromLatLng(latlng) {
-        console.log('dans le geocodeFromLatLng');
+        console.info('dans le geocodeFromLatLng');
         geocoder = new google.maps.Geocoder();
         geocoder.geocode({
             'latLng': latlng
         }, function (results, status) {
-            console.log('tentative de geocoding via ' + latlng);
+            console.info('tentative de geocoding via ' + latlng);
             if (status == google.maps.GeocoderStatus.OK) {
-                console.log('status == google.maps.GeocoderStatus.OK');
-                console.log('geocoding réussi');
-                console.log('reponse brute:');
-                console.log(results[0]);
+                console.info('status == google.maps.GeocoderStatus.OK');
+                console.info('geocoding réussi');
+                console.info('reponse brute:');
+                console.info(results[0]);
                 myGeocodeResults = results;
 
             } else {
-                console.log('Geocoder failed');
+                console.info('Geocoder failed');
                 alert("Geocoder failed due to: " + status);
                 myGeocodeResults = null;
             }
         });
     }
 
+    function getIcon(feeling) {
 
-}]);
+        switch (feeling) {
+        case "HAPPY":
+            return "views/images/happy.png";
+            break;
+
+        case "SAD":
+            return "views/images/sad.png";
+            break;
+
+        case "LOVE":
+            return "views/images/love.png";
+            break;
+        }
+
+    }
+
+
+            }]);

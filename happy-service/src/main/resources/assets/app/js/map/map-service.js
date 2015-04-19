@@ -1,7 +1,7 @@
 'use strict';
 angular.module('happy')
     .factory('MapService', ['$resource', function ($resource) {
-        console.log("dans lemapService");
+        console.info("dans lemapService");
         return $resource('http://127.0.0.1:8080/emotions/:_id', {
             _id: '@_id'
         }, {
@@ -10,8 +10,9 @@ angular.module('happy')
                 isArray: true
             },
             'get': {
-                method: 'GET' 
-            },
+                method: 'GET' ,
+                isArray: true
+            }, 
             'update': {
                 method: 'PUT'
             },

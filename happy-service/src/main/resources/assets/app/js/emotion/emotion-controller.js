@@ -21,7 +21,7 @@ angular.module('happy')
 
             $scope.update = function (_id) {
                 console.log("dans le controller update");
-                $scope.emotion = EmotionService.get({
+                $scope.emotion = EmotionService.query({
                     _id: _id
                 });
                 $scope.open(_id);
